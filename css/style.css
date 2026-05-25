@@ -1,0 +1,425 @@
+@charset "utf-8";
+
+:root {
+    --black: #1a1a1a;
+    --white: #f2f2f2;
+
+    --f16: clamp(0.938rem, 0.909rem + 0.12vw, 1rem); /* 15px--16px */
+    --f20: clamp(1rem, 0.886rem + 0.48vw, 1.25rem);/* 16px--20px */
+    --f24: clamp(1.25rem, 1.136rem + 0.48vw, 1.5rem); /* 20px--24px */
+}
+
+/*--------------------------------
+ベース
+---------------------------------*/
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--black);
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+}
+
+ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+@media (hover: hover) {
+  a:hover{
+    opacity: .6;
+  }
+}
+
+p,a,dt,dd,li,span {
+  font-size: var(--f16);
+  line-height: 1.7;
+}
+
+h1,h2{
+  font-size: var(--f24);
+  font-weight: 300;
+}
+
+h3{
+  font-size: var(--f20);
+}
+
+.inner{
+    max-width: 1240px;
+    padding: 0 3%;
+    margin: 0 auto;
+}
+
+.title{
+  margin-bottom: 3rem;
+}
+
+/* ===============================
+   header
+================================= */
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 900;
+  transition: background-color .3s ease;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 0 3%;
+}
+
+.header__logo{
+  margin: .8rem 0;
+}
+
+.header__logo-link{
+  font-size: var(--f24);
+  font-weight: 400;
+}
+
+/* ===============================
+   ハンバーガー
+================================= */
+
+.header__menu-button {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.header__menu-button span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--black);
+  transition: transform .4s ease;
+}
+
+.header__menu-button span:nth-of-type(1) {
+  top: 14px;
+}
+
+.header__menu-button span:nth-of-type(2) {
+  top: 24px;
+}
+
+.header__menu-button.is-active span:nth-of-type(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.header__menu-button.is-active span:nth-of-type(2) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ===============================
+   ナビ共通
+================================= */
+
+.header__navi {
+  list-style: none;
+  margin: 0;
+  padding: .5rem 3% 1rem;
+
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  position: absolute;
+  transition: transform .4s ease, opacity .3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header__navi.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .header__navi {
+    padding: 0;
+  }
+}
+
+.header__navi-item a{
+  font-weight: 300;
+}
+
+/* ===============================
+   SP（デフォルト）
+   ボタンの下に黒背景
+================================= */
+
+.header__navi {
+  top: 100%;
+  right: 0;
+  width: 100%;
+  background-color: var(--black);
+
+  transform: translateY(-10px);
+}
+
+.header__navi.is-open {
+  color: var(--white);
+  transform: translateY(0);
+}
+
+@media (max-width: 767px) {
+  .header.is-open {
+    background-color: var(--black);
+  }
+
+  .header.is-open .header__logo-link {
+    color: var(--white);
+  }
+
+  .header.is-open .header__menu-button span {
+    background-color: var(--white);
+  }
+
+  .header__navi.is-open .header__navi-item a{
+    color: var(--white);
+  }
+}
+
+/* ===============================
+   PC
+   ボタンの左側に出す
+================================= */
+
+@media (min-width: 768px) {
+
+  .header__menu-button {
+    position: relative; /* .header__naviの基準 */
+  }
+
+  .header__navi {
+    position: absolute;
+    top: 50%;
+    right: 100px;
+    transform: translateX(20px) translateY(-50%);
+    width: auto;
+    background: transparent;
+    color: var(--black);
+  }
+
+  .header__navi.is-open {
+    transform: translateX(0) translateY(-50%);
+  }
+}
+
+/* ===============================
+   hero
+================================= */
+.hero{
+  padding-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .hero{
+    padding-top: 5.5rem;
+  }
+}
+/* ===============================
+   Art Works共通
+================================= */
+
+.works{
+  margin-top: 6rem;
+}
+
+.works__grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+
+.works__item--video iframe{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
+@media(min-width: 768px) {
+  .works{
+    margin-top: 8.5rem;
+  }
+
+  .works__grid{
+    grid-template-columns: 1fr 1fr;
+    margin: 0 0 2rem;
+  }
+}
+
+.works__external{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.works__external img{
+  width: 40px;
+}
+
+/* ===============================
+   Profile
+================================= */
+
+.profile__inner{
+  padding: 8.75rem 10%;
+}
+
+.profile__content{
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 5%;
+}
+
+.profile__name{
+  font-size: var(--f20);
+}
+
+.profile__bio{
+  margin-top: 2rem;
+}
+
+.profile__paragraph{
+  margin-top: 1rem;
+  font-size: var(--f16);
+}
+
+.profile__bio--ja .profile__paragraph{
+  font-size: 95%;
+}
+
+.profile__image{
+  width: 100%;
+}
+
+.profile__social{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .5rem;
+}
+
+.profile__social-link{
+  width: 2rem;
+  height: auto;
+  color: #fff;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+@media(min-width: 768px) {
+  .profile__content{
+    flex-direction: row;
+  }
+
+  .profile__text{
+    width: 60%;
+  }
+
+  .profile__media{
+    width: 40%;
+  }
+
+  .profile__bio{
+    margin-top: 3rem;
+  }
+}
+
+/* ===============================
+   Contact
+================================= */
+
+.contact{
+  height: 90svh;
+}
+
+.contact__inner{
+  padding: 5rem 10%;
+}
+
+.contact__email{
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.contact__instagram{
+  display: flex;
+  align-items: center;
+}
+
+.insta-name{
+  margin-left: .5rem;
+}
+
+/* ===============================
+   footer
+================================= */
+
+.footer__copyright{
+  text-align: center;
+  font-size: 12px;
+  padding: 1rem 0;
+}
+
+.footer__copyright span{
+  font-size: 12px;
+}
+
+/* 背景色制御 */
+
+body {
+  transition: background-color 0.4s ease,color 0.4s ease;
+}
+
+body.is-dark {
+  background: #111;
+  color: #fff;
+}
+
+body.is-dark a {
+  color: #fff;
+}
+
+body.is-dark .header {
+  background: #111;
+}
+
+body.is-dark .header .header__menu-button span{
+  background-color: #fff;
+}
